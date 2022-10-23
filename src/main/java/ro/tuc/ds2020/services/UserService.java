@@ -77,8 +77,9 @@ public class UserService {
                     user.setPassword(userDto.getPassword());
 
                 }
-                if(userDto.isRole()){
-                    user.setRole(userDto.isRole());
+                if(userDto.getRole()!=null){
+                    user.setRole(userDto.getRole());
+
                 }
                 userRepository.save(user);
 

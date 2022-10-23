@@ -1,13 +1,13 @@
 package ro.tuc.ds2020.entities;
 
 import lombok.*;
+import org.apache.catalina.Role;
+import org.apache.catalina.User;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -37,9 +37,13 @@ public class UserOfApp {
     private String password;
 
     @Column(name="role")
-    private boolean role;
+    @Enumerated(EnumType.ORDINAL)
+    private RoleEnum role;
 
-    public UserOfApp(String name, String email, String password, boolean role) {
+    @OneToMany(mappedBy = "userOfApp",cascade = CascadeType.ALL)
+    private List<Device> devices;
+
+    public UserOfApp(String name, String email, String password, RoleEnum role) {
         this.name=name;
         this.email=email;
         this.password=password;

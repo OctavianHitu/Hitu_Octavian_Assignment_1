@@ -48,7 +48,7 @@ public class UserController {
         }
 
         @GetMapping("/{id}")
-        public ResponseEntity<?> getCarById(@PathVariable("id") UUID id){
+        public ResponseEntity<?> getUserById(@PathVariable("id") UUID id){
                 return new ResponseEntity<>(userService.findById(id),HttpStatus.OK);
         }
 

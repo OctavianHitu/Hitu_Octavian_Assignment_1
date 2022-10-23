@@ -9,14 +9,14 @@ public class UserBuilder {
     }
 
     public static UserDto toUserDto(UserOfApp user){
-        return new UserDto(user.getId(),user.getName(),user.getEmail(),user.getPassword(),user.isRole());
+        return new UserDto(user.getId(),user.getName(),user.getEmail(),user.getPassword(),user.getRole());
     }
 
     public static UserOfApp toUserEntity (UserDto userDto){
         return new UserOfApp(userDto.getName(),
                 userDto.getEmail(),
                 userDto.getPassword(),
-                userDto.isRole());
+                userDto.getRole());
     }
 
 
