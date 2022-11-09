@@ -2,8 +2,8 @@ package ro.tuc.ds2020.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
+import ro.tuc.ds2020.controllers.handlers.exceptions.model.ResourceNotFoundException;
 import ro.tuc.ds2020.dtos.DeviceDto;
 import ro.tuc.ds2020.dtos.builders.DeviceBuilder;
 import ro.tuc.ds2020.entities.Device;
@@ -63,6 +63,21 @@ public class DeviceService {
             throw new ResourceNotFoundException(Device.class.getSimpleName());
         }
         return DeviceBuilder.toDeviceDto(optionalDevice.get());
+    }
+
+    public void update (DeviceDto deviceDto){
+        Optional<Device> optionalDevice =deviceRepository.findById(deviceDto.getId());
+        if(!optionalDevice.isPresent()){
+            throw new ResourceNotFoundException(Device.class.getSimpleName());
+        }
+        Device device= optionalDevice.get();
+
+        device.setName(deviceDto.getName());
+        device.setDescription(deviceDto.getDescription());
+        device.setAdress(deviceDto.getAdress());
+        device.setEnergyConsumption(deviceDto.getEnergyConsuption());
+        device.setUserOfApp(userRepository.findByEmail(deviceDto.getUserEmail()));
+        deviceRepository.save(device);
     }
 
 

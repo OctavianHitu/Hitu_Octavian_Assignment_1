@@ -49,5 +49,6 @@ public class Device {
         this.description=description;
         this.adress=adress;
         this.energyConsumption=energyConsuption;
+
     }
 }

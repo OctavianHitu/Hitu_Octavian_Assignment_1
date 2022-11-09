@@ -43,6 +43,11 @@ public class DeviceController {
     public ResponseEntity<?> getDeviceById(@PathVariable("id") UUID id){
         return new ResponseEntity<>(deviceService.findById(id),HttpStatus.OK);
     }
+    @PostMapping("/update")
+    public ResponseEntity<?> update(@RequestBody @Valid DeviceDto deviceDto){
+        deviceService.update(deviceDto);
+        return new ResponseEntity<>("Updated device"+deviceDto.getId(),HttpStatus.OK);
+    }
 
 
 }

@@ -1,16 +1,19 @@
 package ro.tuc.ds2020.services;
 
+import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ro.tuc.ds2020.controllers.handlers.exceptions.model.ResourceNotFoundException;
+import ro.tuc.ds2020.dtos.LoginDto;
 import ro.tuc.ds2020.dtos.builders.UserBuilder;
 import ro.tuc.ds2020.dtos.UserDto;
 import ro.tuc.ds2020.entities.UserOfApp;
 import ro.tuc.ds2020.repositories.UserRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,6 +24,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+
 
 
     private UserRepository userRepository;
@@ -58,6 +62,25 @@ public class UserService {
         }
         UserOfApp user= optionalUser.get();
         return UserBuilder.toUserDto(user);
+    }
+
+    public String generateAccessToken(UserOfApp user) {
+        String con= user.getEmail()+","+user.getRole()+","+user.getId();
+        return Jwts.builder()
+                .setPayload(con)
+                .compact();
+
+    }
+    public UserOfApp loginFunction(LoginDto loginDto) {
+        UserOfApp optionalUserOfApp =userRepository.findByEmail(loginDto.getEmail());
+
+        if(optionalUserOfApp==null){
+           throw new ResourceNotFoundException(UserOfApp.class.getSimpleName());
+       }
+         if(optionalUserOfApp.getPassword().equals(loginDto.getPassword())){
+           return optionalUserOfApp;
+       }
+        throw new ResourceNotFoundException(UserOfApp.class.getSimpleName());
     }
 
     public void update(UserDto userDto){

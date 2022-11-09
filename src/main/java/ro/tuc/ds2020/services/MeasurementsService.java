@@ -3,8 +3,8 @@ package ro.tuc.ds2020.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
+import ro.tuc.ds2020.controllers.handlers.exceptions.model.ResourceNotFoundException;
 import ro.tuc.ds2020.dtos.MeasurementsDto;
 import ro.tuc.ds2020.dtos.builders.MeasurementsBuilder;
 import ro.tuc.ds2020.entities.Device;
