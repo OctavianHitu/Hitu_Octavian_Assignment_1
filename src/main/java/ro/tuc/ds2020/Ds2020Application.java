@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.validation.annotation.Validated;
+import ro.tuc.ds2020.rbq.ThreaderStarter;
 
 import java.util.TimeZone;
 
@@ -17,6 +18,7 @@ public class Ds2020Application extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
+        ThreaderStarter.mainReceiver();
 		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         SpringApplication.run(Ds2020Application.class, args);
     }
